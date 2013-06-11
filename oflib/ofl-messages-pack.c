@@ -120,13 +120,13 @@ ofl_msg_pack_bundle_append(struct ofl_msg_bundle_append *msg, uint8_t **buf, siz
         *buf_len = sizeof(struct ofp_bundle_append) + message_length;
         *buf     = (uint8_t *)malloc(*buf_len);
 
-        append = (struct ofp_bundle_control *)(*buf);
+        append = (struct ofp_bundle_append *)(*buf);
         append->bundle_id =  htonl(msg->bundle_id);
         append->flags     =  htons(msg->flags);
         memset(append->pad,0,sizeof(append->pad));
 
         if(message_length > 0) {
-            message = (*buf) + sizeof(struct ofp_bundle_append);
+            message = (struct ofp_header *)((*buf) + sizeof(struct ofp_bundle_append));
             memcpy(message, msg->message, message_length);
         }
 

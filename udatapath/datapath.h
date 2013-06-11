@@ -169,6 +169,12 @@ dp_run(struct datapath *dp);
 void
 dp_wait(struct datapath *dp);
 
+/* Save and restore datapath state. */
+void
+dp_save_state(struct datapath *dp);
+
+void
+dp_restore_state(struct datapath *dp);
 
 /* Setter functions for various datapath fields */
 void

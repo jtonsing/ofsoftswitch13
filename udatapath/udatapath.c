@@ -128,13 +128,13 @@ udatapath_cmd(int argc, char *argv[])
         
     n_listeners = 0;
     for (i = optind; i < argc; i += 2) {
+        int retval, retval_aux;
+        struct pvconn *pvconn, *pvconn_aux = NULL;
         const char *pvconn_name = argv[i];
         const char *pvconn_name_aux = NULL;
+
         if (use_multiple_connections)
             pvconn_name_aux = argv[i + 1];
-
-        struct pvconn *pvconn, *pvconn_aux = NULL;
-        int retval, retval_aux;
 
         retval = pvconn_open(pvconn_name, &pvconn);
         if (!retval || retval == EAGAIN) {

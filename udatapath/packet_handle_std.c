@@ -53,17 +53,21 @@ packet_handle_std_validate(struct packet_handle_std *handle) {
     struct packet_fields * pktout_inport, *pktout_metadata;
     uint32_t in_port;
     uint64_t metadata;
+    struct packet_fields * iter, *next;
+
     if(handle->valid)
         return;
-    struct packet_fields * iter, *next;
+
     HMAP_FOR_EACH_SAFE(iter, next, struct packet_fields, hmap_node, &handle->match.match_fields){
         free(iter->value);
         free(iter);
     }
+
     hmap_init(&handle->match.match_fields);
 
     if (nblink_packet_parse(handle->pkt->buffer,&handle->match.match_fields, handle->proto) < 0)
         return;
+
     handle->valid = true;
     
     /* Add in_port value to the hash_map */    

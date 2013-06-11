@@ -442,10 +442,10 @@ print_oxm_tlv(FILE *stream, struct ofl_match_tlv *f, size_t *size){
                                 fprintf(stream, ", ");
                 }                  
                 else if (field == OFPXMT_OFB_METADATA){
-                            fprintf(stream, "metadata=\"%lld\"", *((uint64_t*) f->value));
+                            fprintf(stream, "metadata=\"%lu\"", *((uint64_t*) f->value));
                             *size -= 12;
                             if (OXM_HASMASK(f->header)){
-                                fprintf(stream, ", metadata_mask=\"%lld\"", *((uint64_t*) f->value+ 8 ));
+                                fprintf(stream, ", metadata_mask=\"%lu\"", *((uint64_t*) f->value+ 8 ));
                                 *size -= 8;
                             }                            
                             if (*size > 4)                                
@@ -462,10 +462,10 @@ print_oxm_tlv(FILE *stream, struct ofl_match_tlv *f, size_t *size){
                                 fprintf(stream, ", ");
                 }
                 else if (field == OFPXMT_OFB_TUNNEL_ID){
-                            fprintf(stream, "tunnel_id=\"%lld\"", *((uint64_t*) f->value));
+                            fprintf(stream, "tunnel_id=\"%lu\"", *((uint64_t*) f->value));
                             *size -= 12;
                             if (OXM_HASMASK(f->header)){
-                                fprintf(stream, ", tunnel_id_mask=\"%lld\"", *((uint64_t*) f->value+ 8 ));
+                                fprintf(stream, ", tunnel_id_mask=\"%lu\"", *((uint64_t*) f->value+ 8 ));
                                 *size -= 8;
                             }                            
                             if (*size > 4)

@@ -304,7 +304,6 @@ flow_table_create_property(struct ofl_table_feature_prop_header **prop, enum ofp
         case OFPTFPT_WRITE_SETFIELD:
         case OFPTFPT_WRITE_SETFIELD_MISS:{
             struct ofl_table_feature_prop_oxm *oxm_capabilities; 
-            int i;
             oxm_capabilities = xmalloc(sizeof(struct ofl_table_feature_prop_oxm));
             oxm_capabilities->header.type = type;
             oxm_capabilities->oxm_num = N_OXM_FIELDS;

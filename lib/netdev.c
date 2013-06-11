@@ -33,8 +33,8 @@
  * Modifications: Reconstruct VLAN header from PACKET_AUXDATA
  *
  * The modification includes code from libpcap; the copyright notice for that
- * code is
- /*
+ * code is:
+ *
  *  pcap-linux.c: Packet capture interface to the Linux kernel
  *
  *  Copyright (c) 2000 Torsten Landschoff <torsten@debian.org>
@@ -745,11 +745,13 @@ do_open_netdev(const char *name, int ethertype, int tap_fd,
         return errno;
     }
   #ifdef HAVE_PACKET_AUXDATA
+    {
         uint32_t val = 1;
-          if (setsockopt(netdev_fd, SOL_PACKET, PACKET_AUXDATA, &val,
-               sizeof val) == -1 && errno != ENOPROTOOPT){
-              VLOG_ERR(LOG_MODULE, "setsockopt(SO_RCVBUF,%zu): %s", val, strerror(errno));
-          }
+        if (setsockopt(netdev_fd, SOL_PACKET, PACKET_AUXDATA, &val,
+             sizeof val) == -1 && errno != ENOPROTOOPT){
+              VLOG_ERR(LOG_MODULE, "setsockopt(SO_RCVBUF,%u): %s", val, strerror(errno));
+        }
+    }
   #endif
 
     /* Set non-blocking mode. */

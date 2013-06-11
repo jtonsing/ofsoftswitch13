@@ -723,7 +723,7 @@ ofl_msg_unpack_bundle_append(struct ofp_header *src, size_t *len, struct ofl_msg
     dm = (struct ofl_msg_bundle_append *)malloc(sizeof(struct ofl_msg_bundle_append));
     dm->bundle_id = ntohl(sm->bundle_id);
     dm->flags = ntohs(sm->flags);
-    dm->message = message_length > 0 ? (uint8_t *)memcpy(malloc(message_length), sm->message, message_length) : NULL;
+    dm->message = message_length > 0 ? (struct ofp_header *)memcpy(malloc(message_length), sm->message, message_length) : NULL;
 
     *msg = (struct ofl_msg_header *)dm;
     return 0;

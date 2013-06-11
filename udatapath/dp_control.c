@@ -39,6 +39,7 @@
 #include "meter_table.h"
 #include "packets.h"
 #include "pipeline.h"
+#include "bundle.h"
 #include "oflib/ofl.h"
 #include "oflib/ofl-messages.h"
 #include "oflib/ofl-log.h"
@@ -363,7 +364,7 @@ handle_control_msg(struct datapath *dp, struct ofl_msg_header *msg,
             return bundle_handle_control(dp, dp->bundles, (struct ofl_msg_bundle_control *)msg, sender);
         }
         case OFPT_BUNDLE_APPEND:{
-            return bundle_handle_append(dp->bundles, (struct ofl_msg_bundle_append *)msg, sender);
+            return bundle_handle_append(dp, dp->bundles, (struct ofl_msg_bundle_append *)msg, sender);
         }
         case OFPT_EXPERIMENTER: {
             return dp_exp_message(dp, (struct ofl_msg_experimenter *)msg, sender);

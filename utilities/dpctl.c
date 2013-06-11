@@ -293,10 +293,11 @@ dpctl_send(struct vconn *vconn, struct ofl_msg_header *msg) {
     }
 
     if(bundle_id != (uint32_t)-1) {
-        struct ofl_msg_bundle_append append =
-            {{.type = OFPT_BUNDLE_APPEND}};
+        struct ofl_msg_bundle_append append;
 
-        append.message = buf;
+        memset(&append, 0, sizeof(append));
+        append.header.type = OFPT_BUNDLE_APPEND;
+        append.message = (struct ofp_header *)buf;
         append.bundle_id = bundle_id;
         append.flags = bundle_flags;
 
@@ -906,8 +907,10 @@ get_async(struct vconn *vconn, int argc UNUSED, char *argv[] UNUSED){
 
 static void
 bundle_control(struct vconn *vconn, int argc UNUSED, char *argv[] UNUSED) {
-    struct ofl_msg_bundle_control req =
-            {{.type = OFPT_BUNDLE_CONTROL}};
+    struct ofl_msg_bundle_control req;
+
+    memset(&req, 0, sizeof(req));
+    req.header.type = OFPT_BUNDLE_CONTROL;
 
     if (strcmp(argv[0], "open") == 0) {
         req.type = OFPBT_OPEN_REQUEST;
